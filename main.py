@@ -161,6 +161,7 @@ class administrarCategoria:
         codigo=validar.validarCodigo(categoriasDiccionario)
         nombre=validar.validarNombre()
         categoriaAux= Categorias(codigo,nombre)
+
         categoriasDiccionario[codigo]= {
             "categoria":categoriaAux
         }
@@ -390,3 +391,8 @@ class administrarPuesto:
             print(f"Puesto {codigo} eliminado")
         else:
             print("El puesto no existe")
+
+class menu:
+    def mostrarMenu(self):
+        print("Menu Principal")
+        print("1. agregar producto")
