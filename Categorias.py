@@ -72,34 +72,68 @@ class administrarCategoria:
         else:
             print("La categoría no existe")
 
-    def mostrar_todas(self):
-        if self.categorias:
-            print("\nLista de categorías:")
-            for cod, dato in self.categorias.items():
-                print(f"- {cod}: {dato['categoria'].Nombre}")
-        else:
+    def buscarCategoriaPorCodigo(self):
+        if not self.categorias:
             print("No hay categorías registradas.")
-def menu():
-    adm_cat = administrarCategoria()
-
-    while True:
-        print("\n--- MENÚ DE CATEGORÍAS ---")
-        print("1. Agregar categoría")
-        print("2. Mostrar categorías")
-        print("3. Eliminar categoría")
-        print("4. Salir")
-        opcion = input("Seleccione una opción: ")
-
-        if opcion == "1":
-            adm_cat.agregarCategoria()
-        elif opcion == "2":
-            adm_cat.mostrar_todas()
-        elif opcion == "3":
-            adm_cat.eliminarCategoria()
-        elif opcion == "4":
-            print("Saliendo del programa...")
-            break
+            return None
+        codigo = input("Ingrese el código a buscar: ")
+        dato = self.categorias.get(codigo)
+        if dato:
+            cat = dato["categoria"]
+            print(f"Encontrada -> {cat.IdCategoria}: {cat.Nombre}")
+            return cat
         else:
-            print("Opción no válida")
+            print("No se encontró la categoría.")
+            return None
 
-menu()
+    def quick_sort(self, lista):
+        if len(lista) <= 1:
+            return lista
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if x['categoria'].Nombre.lower() <= pivote['categoria'].Nombre.lower()]
+        mayores = [x for x in lista[1:] if x['categoria'].Nombre.lower() > pivote['categoria'].Nombre.lower()]
+        return self.quick_sort(menores) + [pivote] + self.quick_sort(mayores)
+
+    def mostrar_categorias(self):
+        if not self.categorias:
+            print("No hay categorías registradas.")
+            return
+        lista = list(self.categorias.values())
+        lista_ordenada = self.quick_sort(lista)
+        print("\nCategorías (ordenadas por nombre):")
+        for item in lista_ordenada:
+            cat = item['categoria']
+            print(f"- {cat.IdCategoria}: {cat.Nombre}")
+
+
+class Menu:
+    def __init__(self):
+        self.adm = administrarCategoria()
+        self.mostrar_menu()
+
+    def mostrar_menu(self):
+        while True:
+            print("\n--- MENÚ CATEGORÍAS ---")
+            print("1. Agregar categoría")
+            print("2. Mostrar categorías (ordenadas)")
+            print("3. Buscar por código")
+            print("4. Eliminar categoría")
+            print("5. Salir")
+            opcion = input("Seleccione una opción: ")
+            match opcion:
+                case "1":
+                    self.adm.agregarCategoria()
+                case "2":
+                    self.adm.mostrar_categorias()
+                case "3":
+                    self.adm.buscarCategoriaPorCodigo()
+                case "4":
+                    self.adm.eliminarCategoria()
+                case "5":
+                    print("Saliendo...")
+                    break
+                case _:
+                    print("Opción no válida")
+
+
+Menu()
