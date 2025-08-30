@@ -175,4 +175,4 @@ class Menu:
                     print("Opción no válida")
 
 
-Menu()
+

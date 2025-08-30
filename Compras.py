@@ -221,4 +221,4 @@ class MenuCompras:
                     print("Opción no válida")
 
 
-MenuCompras()
+
