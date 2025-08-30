@@ -134,6 +134,3 @@ class Menu:
                     break
                 case _:
                     print("Opción no válida")
-
-
-
