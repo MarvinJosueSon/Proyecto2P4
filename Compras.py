@@ -1,4 +1,3 @@
-# compras.py
 from Productos import administrarProducto
 
 def siguiente_id(dic):

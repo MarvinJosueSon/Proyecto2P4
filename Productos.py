@@ -107,22 +107,16 @@ class administrarProducto:
         if len(lista) <= 1:
             return lista
         pivote = lista[0]
-        pivote['producto'].recomputar_stock()
-        menores = []
-        mayores = []
-        for x in lista[1:]:
-            x['producto'].recomputar_stock()
-            if x['producto'].Nombre.lower() <= pivote['producto'].Nombre.lower():
-                menores.append(x)
-            else:
-                mayores.append(x)
+        pivote.recomputar_stock()
+        menores = [x for x in lista[1:] if x.Nombre.lower() <= pivote.Nombre.lower()]
+        mayores = [x for x in lista[1:] if x.Nombre.lower() > pivote.Nombre.lower()]
         return self.quick_sort(menores) + [pivote] + self.quick_sort(mayores)
 
     def mostrar_productos(self):
         if not self.productos:
             print("No hay productos registrados.")
             return
-        lista = list(self.productos.values())
+        lista = [dato["producto"] for dato in self.productos.values()]
         lista_ordenada = self.quick_sort(lista)
         print("\nProductos (ordenados por nombre):")
         for item in lista_ordenada:

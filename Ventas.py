@@ -1,4 +1,3 @@
-# ventas.py
 from Productos import administrarProducto
 import os
 

@@ -129,8 +129,8 @@ class administrarCliente:
         if len(lista) <= 1:
             return lista
         pivote = lista[0]
-        menores = [x for x in lista[1:] if x['cliente'].Nombre.lower() <= pivote['cliente'].Nombre.lower()]
-        mayores = [x for x in lista[1:] if x['cliente'].Nombre.lower() > pivote['cliente'].Nombre.lower()]
+        menores = [x for x in lista[1:] if x.Nombre.lower() <= pivote.Nombre.lower()]
+        mayores = [x for x in lista[1:] if x.Nombre.lower() > pivote.Nombre.lower()]
         return self.quick_sort(menores) + [pivote] + self.quick_sort(mayores)
 
     def mostrar_clientes(self):
